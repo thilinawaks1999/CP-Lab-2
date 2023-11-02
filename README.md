@@ -1,3 +1,5 @@
+### CS4532 Concurrent Programming (Lab 2)
+
 ## Steps to run this program
 
 1. Compile the main.java file using `javac Main.java` command.
@@ -14,7 +16,7 @@ immediately.
 
 ## Constraints
 
-There are 2 main classes (Bus & Rider) that we have to observe in different points of view.
+There are 2 main classes (Bus & Rider)
 
 ### Bus
 

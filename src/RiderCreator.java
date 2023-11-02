@@ -1,24 +1,24 @@
 import java.util.Random;
 
-public class RiderGenerator implements Runnable {
-    private float interArrivalMeanTime;
+public class RiderCreator implements Runnable {
+    private float arrivalMeanTime;
     private static Random random;
 
-    public RiderGenerator(float interArrivalMeanTime) {
-        this.interArrivalMeanTime = interArrivalMeanTime;
+    public RiderCreator(float arrivalMeanTime) {
+        this.arrivalMeanTime = arrivalMeanTime;
         random = new Random();
     }
 
     @Override
     public void run() {
-        int riderIndex = 1;
+        int riderId = 1;
 
         // Spawning rider threads for the user specified value
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 // Initializing and starting the rider threads
                 Rider rider = new Rider(
-                        riderIndex,
+                        riderId,
                         SemaphoreCollection.getWaitingAreaSemaphore(),
                         SemaphoreCollection.getRiderBoardBusSemaphore(),
                         SemaphoreCollection.getBusArrivalSemaphore(),
@@ -26,10 +26,10 @@ public class RiderGenerator implements Runnable {
                 );
                 (new Thread(rider)).start();
 
-                riderIndex++;
+                riderId++;
 
                 // Sleeping the thread to obtain the inter arrival time between the threads
-                Thread.sleep(getRiderInterArrivalTime());
+                Thread.sleep(getRiderArrivalTime());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -38,9 +38,8 @@ public class RiderGenerator implements Runnable {
     }
 
     // Method to get the rider inter arrival time
-    public long getRiderInterArrivalTime() {
-        //distribution = 1 - e^(-lambda * x)
-        float lambda = 1 / interArrivalMeanTime;
+    public long getRiderArrivalTime() {
+        float lambda = 1 / arrivalMeanTime;
         return Math.round(Math.log(1 - random.nextFloat()) / (-lambda));
     }
 }

@@ -7,12 +7,12 @@ public class WaitingArea {
     }
 
     // Method to increment the ridersCount
-    public static void incrementRidersCount() {
+    public static void riderCountPlus() {
         ridersCount++;
     }
 
     // Method to decrement the ridersCount
-    public static void decrementRidersCount() {
+    public static void riderCountMinus() {
         ridersCount--;
     }
 }

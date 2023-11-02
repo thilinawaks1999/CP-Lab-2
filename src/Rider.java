@@ -1,17 +1,17 @@
 import java.util.concurrent.Semaphore;
 
 class Rider implements Runnable {
-    private int index;
+    private int id;
     private final Semaphore waitingAreaSemaphore;
-    private final Semaphore riderBoardBusSemaphore;
+    private final Semaphore riderBoardSemaphore;
     private final Semaphore busArrivalSemaphore;
     private final Semaphore busDepartureSemaphore;
 
-    public Rider(int index, Semaphore waitingAreaSemaphore, Semaphore riderBoardBusSemaphore,
+    public Rider(int id, Semaphore waitingAreaSemaphore, Semaphore riderBoardSemaphore,
                  Semaphore busArrivalSemaphore, Semaphore busDepartureSemaphore) {
-        this.index = index;
+        this.id = id;
         this.waitingAreaSemaphore = waitingAreaSemaphore;
-        this.riderBoardBusSemaphore = riderBoardBusSemaphore;
+        this.riderBoardSemaphore = riderBoardSemaphore;
         this.busArrivalSemaphore = busArrivalSemaphore;
         this.busDepartureSemaphore = busDepartureSemaphore;
     }
@@ -27,26 +27,26 @@ class Rider implements Runnable {
 
             // Enter waiting area and increment the ridersCount
             enterWaitingArea();
-            WaitingArea.incrementRidersCount();
+            WaitingArea.riderCountPlus();
 
             // Releasing busArrivalSemaphore allowing a bus to arrive
             busArrivalSemaphore.release();
 
             // Acquiring the semaphore to board the bus
-            riderBoardBusSemaphore.acquire();
+            riderBoardSemaphore.acquire();
 
             // Board the bus
             boardBus();
 
             // Decrementing the ridersCount once boarded
-            WaitingArea.decrementRidersCount();
+            WaitingArea.riderCountMinus();
 
             if (WaitingArea.getRidersCount() == 0) {
                 // When all the riders are boarded, allowing the bus to depart by releasing the bus departure semaphore
                 busDepartureSemaphore.release();
             } else {
                 // If there are more riders waiting, allowing them to get into the bus
-                riderBoardBusSemaphore.release();
+                riderBoardSemaphore.release();
             }
 
             // Releasing the semaphore for enter waiting area
@@ -57,10 +57,10 @@ class Rider implements Runnable {
     }
 
     public void boardBus() {
-        System.out.println("Rider " + index + " boarded bus to the bus with index:" + Bus.getBusCount() );
+        System.out.println("Rider_" + id + " boarded bus to the bus with index:" + Bus.getBusCount() + " at " + new java.util.Date());
     }
 
     public void enterWaitingArea() {
-        System.out.println("Rider " + index + " entered waiting area to board the bus");
+        System.out.println("Rider_" + id + " entered waiting area to board the bus at " + new java.util.Date());
     }
 }

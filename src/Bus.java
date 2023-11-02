@@ -1,18 +1,18 @@
 import java.util.concurrent.Semaphore;
 
 public class Bus implements Runnable {
-    private final int index;
+    private final int id;
     private final Semaphore busArrivalSemaphore;
     private final Semaphore busDepartureSemaphore;
-    private final Semaphore riderBoardBusSemaphore;
-    private static int busIndex;
+    private final Semaphore riderBoardSemaphore;
+    private static int busId;
 
-    public Bus(int index, Semaphore busArrivalSemaphore, Semaphore busDepartureSemaphore,
-               Semaphore riderBoardBusSemaphore) {
-        this.index = index;
+    public Bus(int id, Semaphore busArrivalSemaphore, Semaphore busDepartureSemaphore,
+               Semaphore riderBoardSemaphore) {
+        this.id = id;
         this.busArrivalSemaphore = busArrivalSemaphore;
         this.busDepartureSemaphore = busDepartureSemaphore;
-        this.riderBoardBusSemaphore = riderBoardBusSemaphore;
+        this.riderBoardSemaphore = riderBoardSemaphore;
     }
 
     @Override
@@ -25,11 +25,11 @@ public class Bus implements Runnable {
             arrive();
 
             // Checking if there are waiting riders
-            System.out.println("Waiting rider count: " + WaitingArea.getRidersCount());
+            System.out.println("Waiting riders count: " + WaitingArea.getRidersCount());
 
             if (WaitingArea.getRidersCount() > 0) {
                 // Releasing the rider boarding semaphore allowing a rider to board the bus
-                riderBoardBusSemaphore.release();
+                riderBoardSemaphore.release();
                 // Acquiring the bus departure semaphore to wait the bus until the riders get boarded
                 busDepartureSemaphore.acquire();
             }
@@ -46,17 +46,17 @@ public class Bus implements Runnable {
 
     // Method to get the index of the bus
     public static int getBusCount() {
-        return busIndex;
+        return busId;
     }
 
-    // Method to indicate the arrival of the bus
+    // Method to indicate the arrival of the bus and set the busId
     private void arrive() {
-        busIndex=index;
-        System.out.println(">> Bus " + index + " arrived the bus stop");
+        busId=id;
+        System.out.println("\n>> Bus_" + id + " arrived the bus stop at " + new java.util.Date() + "\n");
     }
 
     // Method to indicate the departure of the bus
     private void depart() {
-        System.out.println(">> Bus " + index + " departed the bus stop");
+        System.out.println("\n>> Bus_" + id + " departed the bus stop at " + new java.util.Date() + "\n");
     }
 }

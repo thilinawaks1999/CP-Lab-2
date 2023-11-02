@@ -1,11 +1,11 @@
 import java.util.Random;
 
 public class RandomBusCreator implements Runnable {
-    private float interArrivalMeanTime;
+    private float arrivalMeanTime;
     private static Random random;
 
-    public RandomBusCreator(float interArrivalMeanTime) {
-        this.interArrivalMeanTime = interArrivalMeanTime;
+    public RandomBusCreator(float arrivalMeanTime) {
+        this.arrivalMeanTime = arrivalMeanTime;
         random = new Random();
     }
 
@@ -29,7 +29,7 @@ public class RandomBusCreator implements Runnable {
                 busIndex++;
 
                 // Sleeping the thread to obtain the inter arrival time between the bus threads
-                Thread.sleep(getExponentiallyDistributedInterArrivalTime());
+                Thread.sleep(getArrivalTime());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -37,8 +37,8 @@ public class RandomBusCreator implements Runnable {
     }
 
     // Method to get the exponentially distributed bus inter arrival time
-    public long getExponentiallyDistributedInterArrivalTime() {
-        float lambda = 1 / interArrivalMeanTime;
+    public long getArrivalTime() {
+        float lambda = 1 / arrivalMeanTime;
         return Math.round(Math.log(1 - random.nextFloat()) / (-lambda));
     }
 }
