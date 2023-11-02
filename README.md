@@ -1,11 +1,11 @@
-### CS4532 Concurrent Programming (Lab 2)
+## CS4532 Concurrent Programming (Lab 2)
 
-## Steps to run this program
+### Steps to run this program
 
 1. Compile the main.java file using `javac Main.java` command.
 2. Run Main file using `java Main` command.
 
-## Challenge
+### Challenge
 
 This problem was originally based on the Senate bus at Wellesley College. Riders come to a bus
 stop and wait for a bus. When the bus arrives, all the waiting riders invoke boardBus, but anyone who
@@ -14,16 +14,16 @@ are more than 50 people waiting, some will have to wait for the next bus. When a
 boarded, the bus can invoke depart. If the bus arrives when there are no riders, it should depart
 immediately.
 
-## Constraints
+### Constraints
 
 There are 2 main classes (Bus & Rider)
 
-### Bus
+#### Bus
 
 1. Only 1 bus can arrive to the bus stop at one time.
 2. A bus cannot depart until all the riders are boarded or bus is full.
 
-### Rider
+#### Rider
 
 1. Riders cannot board bus until a bus arrives.
 2. Only 1 rider can board bus at one time.
