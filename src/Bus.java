@@ -57,6 +57,6 @@ public class Bus implements Runnable {
 
     // Method to indicate the departure of the bus
     private void depart() {
-        System.out.println("\n>> Bus_" + id + " departed the bus stop at " + new java.util.Date() + "\n");
+        System.out.println("\n>> Bus_" + id + " departed the bus stop with at " + new java.util.Date() + "\n");
     }
 }

@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        float riderArrivalMeanTime = 30f * 1000; // 30 seconds
-        float busArrivalMeanTime = 20 * 60f * 1000; // 20 minutes
+        float riderArrivalMeanTime = Constant.getRiderArrivalMeanTime(); // 30 seconds
+        float busArrivalMeanTime = Constant.getBusArrivalMeanTime(); // 20 minutes
 
         String userInput;
         try (Scanner scanner = new Scanner(System.in)) {

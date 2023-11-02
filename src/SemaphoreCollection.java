@@ -2,13 +2,13 @@ import java.util.concurrent.Semaphore;
 
 public class SemaphoreCollection {
     // Semaphore used for riders to come the waiting area, allowing 50 riders to the waiting area
-    private static final Semaphore waitingArea = new Semaphore(50);
+    private static final Semaphore waitingArea = new Semaphore(Constant.getBusCapacity());
 
     // Semaphore used for riders to board the bus
     private static final Semaphore riderBoard = new Semaphore(0);
 
     // Semaphore used for bus to arrive
-    private static final Semaphore busArrival = new Semaphore(1);
+    private static final Semaphore busArrival = new Semaphore(Constant.getBusCountCanArrive());
 
     // Semaphore used for bus to depart after the riders are boarded
     private static final Semaphore busDeparture = new Semaphore(0);
